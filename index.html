@@ -47,12 +47,12 @@
 
         //当たり判定
         var num = [0, 0];
-        num[0] = Math.floor(Math.random() * 206); //0~205までの数字を代入(大当たり抽選)
+        num[0] = Math.floor(Math.random() * 2); //0~1までの数字を代入(大当たり抽選)
         num[1] = Math.floor(Math.random() * 100); //0~99までの数字を代入(ラウンド振り分け)
         $("#cnt").text(i);
 
         //3ラウンド
-        if (num[0] <= 100 && num[1] < 80) {
+        if (num[0] == 0 && num[1] < 80) {
           i = 3;
           c++;
           con++;
@@ -61,7 +61,7 @@
         }
 
         //9ラウンド
-        if (num[0] == 100 && num[1] >= 80) {
+        if (num[0] == 0 && num[1] >= 80) {
           i = 3;
           c = c + 3;
           con++;
