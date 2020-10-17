@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>大工の源さん</title>
+  </head>
+  <body>
+    <div class="back">
+      <h1 class="title" style="text-align: center;">大工の源さん 超韋駄天</h1>
+      <div style="text-align: center;">
+      <button
+        id="btn"
+        type="button"
+        class="btn btn-warning push"
+        onClick="sound()"
+      >
+        Push
+      </button>
+    </div>
+      <h2 style="text-align: center; font-weight: bold; color: red;" id="cnt">3</h2>
+      <h1 style="text-align: center;" id="last"></h1>
+      <h2 style="text-align: center;" id="rush">Rush×0</h2>
+      <h2 style="text-align: center;" id="ball">出玉 0</h2>
+      
+    </div>
+    
+    <script>
+      var i = 3;
+      var c = 0;
+      var con = 0;
+      function sound() {
+        
+        //ボタンを反応しなくする
+        document.getElementById("btn").disabled = false;
+        
+        //セリフを消す
+        $("#last").text("");
+        //一回分減らす
+        i--;
+
+        //当たり判定
+        var num = [0, 0];
+        num[0] = Math.floor(Math.random() * 206); //0~205までの数字を代入(大当たり抽選)
+        num[1] = Math.floor(Math.random() * 100); //0~99までの数字を代入(ラウンド振り分け)
+        $("#cnt").text(i);
+
+        //3ラウンド
+        if (num[0] <= 100 && num[1] < 80) {
+          i = 3;
+          c++;
+          con++;
+          $("#rush").text("継続 " + con);
+          $("#ball").text("出玉 " + c * 300);
+        }
+
+        //9ラウンド
+        if (num[0] == 100 && num[1] >= 80) {
+          i = 3;
+          c = c + 3;
+          con++;
+          $("#rush").text("継続 " + con);
+          $("#ball").text("出玉 " + c * 300);
+        }
+        
+        $("#cnt").text(i);
+        if (i == 0) {
+          $("#last").text("最後の一撃でい！！");
+        }
+        if (i == -1) {
+          $("#cnt").text("0");
+          $("#rush").text("継続 " + con + "回で終了");
+          document.getElementById("btn").disabled = true;
+        }
+      }
+    </script>
+  </body>
+</html>
